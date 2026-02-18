@@ -20,9 +20,10 @@ class ControllerReativo {
     fun getProducts(): Flux<Produto> {
         return this.webClient
             .get()
-            .uri("/demo01/products")
+            .uri("/demo01/products/notorious")
             .retrieve()
             .bodyToFlux(Produto::class.java)
+            .onErrorComplete()
             .doOnNext { p -> log.info("receive data {}", p) }
     }
 }
