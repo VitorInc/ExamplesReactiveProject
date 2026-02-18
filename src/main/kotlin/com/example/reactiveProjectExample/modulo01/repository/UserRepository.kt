@@ -20,5 +20,5 @@ interface UserRepository: ReactiveCrudRepository<Customer, Int> {
     @Query("SELECT * FROM customer WHERE email = :email" )
     fun findByEmail(email: String): Flux<Customer>
 
-
+    fun findByEmailEndingWith(email: String): Flux<Customer>
 }

@@ -8,17 +8,8 @@ import org.springframework.data.relational.core.mapping.Table
 class Customer(
     @Id
     @Column("id")val id: Int? = null,
-    val name: String,
-    val email: String
+    @Column("name") val name: String,
+    @Column("email") val email: String
 ) {
-    @Transient
-    var orders: List<CustomerOrder> = emptyList()  // Não afeta equals/hashCode
 
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (other !is Customer) return false
-        return id == other.id  // Apenas ID
-    }
-
-    override fun hashCode(): Int = id?.hashCode() ?: 0
 }
