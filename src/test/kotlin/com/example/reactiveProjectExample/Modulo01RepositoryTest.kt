@@ -73,6 +73,32 @@ class Modulo01RepositoryTest: AbstractClass() {
     }
 
     @Test
+    fun updateCustomer() {
+        StepVerifier.create(
+            customerRepository.findByName("ethan")
+                .flatMap { customer ->
+                    log.info("Found customer: {}", customer.name)
+                    val updatedCustomer = customer.copy(
+                        name = "clayton",
+                        email = "clayton@gmail.com"
+                    )
+                    customerRepository.save(updatedCustomer)
+                }
+        )
+            .assertNext { updated ->
+                log.info("Updated customer: {} - {}", updated.name, updated.email)
+                kotlin.test.assertEquals("clayton", updated.name)
+                kotlin.test.assertEquals("clayton@gmail.com", updated.email)
+            }
+            .verifyComplete()
+
+        StepVerifier.create(customerRepository.findByName("ethan"))
+            .expectNextCount(0)
+            .verifyComplete()
+    }
+
+
+    @Test
     fun insertAndDeleteCustomer_verifyDeletion() {
         val customer = Customer(
             name = "marshal",

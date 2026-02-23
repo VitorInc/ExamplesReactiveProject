@@ -5,7 +5,7 @@ import org.springframework.data.relational.core.mapping.Table
 
 // ✅ MELHOR
 @Table("customer")
-class Customer(
+data class Customer(
     @Id
     @Column("id")val id: Int? = null,
     @Column("name") val name: String,
